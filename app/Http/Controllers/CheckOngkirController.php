@@ -12,13 +12,13 @@ class CheckOngkirController extends Controller
     public function index()
     {
         $provinces = Province::pluck('name', 'province_id');
-        return view('ongkir', compact('provinces'));
+        return view('index', compact('provinces'));
     }
 
     public function getCities($id)
     {
         $cities = City::where('province_id', $id)->pluck('name', 'city_id');
-        return response()->json($city);
+        return response()->json($cities);
     }
 
     public function check_ongkir(Request $request)
