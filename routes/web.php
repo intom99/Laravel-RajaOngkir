@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CheckOngkirController@index');
+Route::post('/', 'CheckOngkirController@check_ongkir');
+Route::get('/cities/{province_id}', 'CheckOngkirController@getCities');
