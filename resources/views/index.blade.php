@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!---->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
-    {{-- <link rel="stylesheet" href="../ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css">
-    <link rel="stylesheet" href="/path/to/select2-bootstrap4.min.css"> --}}
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+     <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.3.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+    
     <title>Laravel Ekspedisi | Raja Ongkir</title>
 </head>
 <body>
@@ -25,7 +24,7 @@
                         <hr>
 
                         <div class="form-group">
-                            <label>Provinsi</label>
+                            <label class="font-weight-bold">Provinsi</label>
                         <select class="form-control prov-origin" name="province_origin">
                             <option value="0">-- Choose Province --</option>
                             @foreach($provinces as $province => $value)
@@ -35,7 +34,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label>Kota / kabupaten</label>
+                            <label class="font-weight-bold">Kota / kabupaten</label>
                         <select class="form-control c-origin" name="city_origin">
                             <option value="0">-- Choose City --</option>
                            
@@ -63,7 +62,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label>Kota / kabupaten</label>
+                            <label class="font-weight-bold">Kota / kabupaten</label>
                         <select class="form-control c-destination" name="city_destination">
                             <option value="0">-- Choose City --</option>
                            
@@ -78,11 +77,11 @@
             <div class="col-md-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h2>Kurir</h2>
+                        <h2>Courier</h2>
                         <hr>
                         <div class="form-group">
-                            <label>Provinsi Tujuan</label>
-                            <select class="form-control" name="courier">
+                            <label class="font-weight-bold">Kurir</label>
+                            <select class="form-control " name="courier">
                                 <option value="0">-- Choose Courier --</option>
                                 <option value="jne">JNE</option>
                                 <option value="pos">POS</option>
@@ -90,21 +89,21 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Berat (Gram)</label>
-                            <input type="number" class="form-control" name="weight" placeholder="input weight">
+                            <label class="font-weight-bold">Berat (Gram)</label>
+                            <input type="number" class="form-control" name="weight" id="weight" placeholder="input weight">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <button class="btn btn-primary btn-block btn-check shadow"> Check Ongkir</button>
+                <button class="btn btn-primary shadow btn-block btn-check"> Check Ongkir</button>
             </div>
 
         </div>
         <div class="row mt-3">
             <div class="col-md-12">
-                <div class="card d-none">
+                <div class="card d-none ongkir">
                     <div class="card-body">
                         <ul class="list-group" id="ongkir"></ul>
                     </div>
@@ -119,15 +118,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-   <script>
-        $(document).ready(function(){
-            $(".prov-origin,.c-origin, .prov-destination, .c-destination").select2(
+ <script>
+    $(document).ready(function() {
+        $(".prov-origin,.c-origin, .prov-destination, .c-destination").select2({
                 theme:'bootstrap4', width:'style',
-            )
-
         });
 
-        // select origin
+        // // select origin
         $('select[name="province_origin"]').on('change', function(){
             let provId = $(this).val();
             if(provId){
@@ -139,36 +136,78 @@
                         $('select[name="city_origin"]').empty();
                         $('select[name="city_origin"]').append(' <option value="">-- Choose City --</option>');
                         $.each(response, function(key, value){
-                            $('select[name="city_origin"]').append('<option value="' + key +'">' + value + '</option>')
+                            $('select[name="city_origin"]').append('<option value="' + key +'">' + value + '</option>');
                         });
-                    },
+                    }
                 });
             }else{
-                $('select[name="city_origin"]').append(' <option value="">-- Choose City --</option>')
+                $('select[name="city_origin"]').append(' <option value="">-- Choose City --</option>');
             }
         });
 
-        // select destination
+        // // select destination
         $('select[name="province_destination"]').on('change', function(){
             let provId = $(this).val();
             if(provId){
                 jQuery.ajax({
                     url: '/cities/'+provId,
                     type: "GET",
-                    dataType: "json",
+                    dataType: "JSON",
                     success: function(response){
                         $('select[name="city_destination"]').empty();
                         $('select[name="city_destination"]').append(' <option value="0">-- Choose City --</option>');
                         $.each(response, function(key, value){
-                            $('select[name="city_destination"]').append('<option value="' + key +'">' + value + '</option>')
+                            $('select[name="city_destination"]').append('<option value="' + key +'">' + value + '</option>');
                         });
-                    },
+                    }
                 });
             }else{
-                $('select[name="city_destination"]').append(' <option value="0">-- Choose City --</option>')
+                $('select[name="city_destination"]').append(' <option value="0">-- Choose City --</option>');
             }
         });
-    </script>
+
+        // // ajak check ongkir
+        let isProcess = false;
+        $('.btn-check').click(function(e){
+            e.preventDefault();
+
+            let token = $("meta[name='csrf-token']").attr("content");
+            let city_origin = $('select[name="city_origin"]').val();
+            let city_destination = $('select[name="city_destination"]').val();
+            let courier = $('select[name="courier"]').val();
+            let weight = $('#weight').val();
+            if(isProcess){
+                return;
+            }
+
+            isProcess = true;
+            jQuery.ajax({
+                url: "/",
+                data: {
+                    _token: token,
+                    city_origin: city_origin,
+                    city_destination: city_destination,
+                    courier: courier,
+                    weight: weight,
+                },
+
+                dataType: "JSON",
+                type: "POST",
+                success: function(response){
+                    isProcess = false;
+                    if(response){
+                        $('#ongkir').empty();
+                        $('.ongkir').addClass('d-block');
+                        $.each(response[0]['costs'], function(key, value){
+                            $('#ongkir').append('<li class="list-group-item">'+response[0].code.toUpperCase()+': <strong>'+value.service+ '</strong> - Rp. '+value.cost[0].value+' ('+value.cost[0].etd+' hari)</li>');
+                        });
+                    }
+                }
+            });
+
+        });
+    });
+</script>
 
 </body>
 </html>
