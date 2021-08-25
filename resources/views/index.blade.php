@@ -15,97 +15,100 @@
 </head>
 <body>
 
-    <div class="container-fluid mt-5">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>ORIGIN</h2>
-                        <hr>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Provinsi</label>
-                        <select class="form-control prov-origin" name="province_origin">
-                            <option value="0">-- Choose Province --</option>
-                            @foreach($provinces as $province => $value)
-                                <option value="{{$province}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="font-weight-bold">Kota / kabupaten</label>
-                        <select class="form-control c-origin" name="city_origin">
-                            <option value="0">-- Choose City --</option>
-                           
-                        </select>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>DESTINATION</h2>
-                        <hr>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Provinsi</label>
-                        <select class="form-control prov-destination" name="province_destination">
-                            <option value="0">-- Choose Province --</option>
-                            @foreach($provinces as $province => $value)
-                                <option value="{{$province}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="font-weight-bold">Kota / kabupaten</label>
-                        <select class="form-control c-destination" name="city_destination">
-                            <option value="0">-- Choose City --</option>
-                           
-                        </select>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Courier</h2>
-                        <hr>
-                        <div class="form-group">
-                            <label class="font-weight-bold">Kurir</label>
-                            <select class="form-control " name="courier">
-                                <option value="0">-- Choose Courier --</option>
-                                <option value="jne">JNE</option>
-                                <option value="pos">POS</option>
-                                <option value="tiki">TIKI</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="font-weight-bold">Berat (Gram)</label>
-                            <input type="number" class="form-control" name="weight" id="weight" placeholder="input weight">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <button class="btn btn-primary shadow btn-block btn-check"> Check Ongkir</button>
-            </div>
-
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white text-dark">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Ekspedisi</li>
+                    </ol>
+                  </nav>
         </div>
-        <div class="row mt-3">
+          
+        <div class="row">
             <div class="col-md-12">
-                <div class="card d-none ongkir">
+                <div class="card shadow">
                     <div class="card-body">
-                        <ul class="list-group" id="ongkir"></ul>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>ASAL</h2>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Provinsi</label>
+                                <select class="form-control prov-origin" name="province_origin">
+                                    <option value="0">-- Choose Province --</option>
+                                    @foreach($provinces as $province => $value)
+                                        <option value="{{$province}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Kota / kabupaten</label>
+                                <select class="form-control c-origin" name="city_origin">
+                                    <option value="0">-- Choose City --</option>
+                                </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <h2>TUJUAN</h2>
+                                <hr>
+        
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Provinsi</label>
+                                <select class="form-control prov-destination" name="province_destination">
+                                    <option value="0">-- Choose Province --</option>
+                                    @foreach($provinces as $province => $value)
+                                        <option value="{{$province}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Kota / kabupaten</label>
+                                <select class="form-control c-destination" name="city_destination">
+                                    <option value="0">-- Choose City --</option>
+                                </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <h2>KURIR</h2>
+                                <hr>
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Kurir</label>
+                                    <select class="form-control " name="courier">
+                                        <option value="0">-- Choose Courier --</option>
+                                        <option value="jne">JNE</option>
+                                        <option value="pos">POS</option>
+                                        <option value="tiki">TIKI</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Berat (Gram)</label>
+                                    <input type="number" class="form-control" name="weight" id="weight" placeholder="input weight">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary shadow btn-block btn-check"> Check Ongkir</button>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                <div class="d-none ongkir">
+                                        <ul class="list-group" id="ongkir"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+
                     </div>
                 </div>
             </div>
